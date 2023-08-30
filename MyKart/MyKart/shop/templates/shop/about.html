@@ -1,0 +1,81 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %} About Us {% endblock %}
+{% block body %}
+<main role="main">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">MyKart</h1>
+      "Welcome to MyKart – your one-stop destination for all things shopping! Our mission is simple: to bring you the latest trends, quality products, and a seamless shopping experience. With a wide range of categories to choose from, we're committed to offering you the best selection of products that cater to your needs. Our team is dedicated to ensuring your satisfaction, providing excellent customer service, and making your online shopping journey truly enjoyable. Join us at MyKart and embark on a shopping adventure like no other!"
+      <p><br><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-4">
+        <h2>History</h2>
+        <p>Founded in Delhi, MyKart has been redefining online shopping since 2009. Our journey is a tale of growth, innovation, and customer-centricity that began with a simple idea and transformed into a thriving platform. </p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div>
+      <div class="col-md-4">
+        <h2>Mission</h2>
+        <p>Our mission at MyKart is to provide customers with a convenient and reliable platform to shop for their needs, offering a diverse selection of products and ensuring utmost satisfaction. </p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div>
+      <div class="col-md-4">
+        <h2>Vision</h2>
+        <p>Our vision is to become the go-to online marketplace, where customers find everything they desire while enjoying a user-friendly interface, timely deliveries, and top-notch service.</p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div>
+    </div>
+
+    <hr>
+
+  </div> <!-- /container -->
+
+</main>
+<footer class="container">
+  <p>&copy; Company 2017-2020</p>
+</footer>
+{% endblock %}
+
+{% block js %}
+<script>
+    console.log('working')
+<!--    localStorage.removeItem('cart');-->
+
+    if (localStorage.getItem('cart') == null){
+        var cart = {};
+    } else {
+        cart = JSON.parse(localStorage.getItem('cart'));
+        document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    }
+
+    $(document).ready(function() {
+        // Initialize popover
+        $('[data-toggle="popover"]').popover();
+
+        // Click handler for cart button
+        $('.cart').click(function(){
+            console.log('clicked');
+            var idstr = this.id.toString();
+            console.log(idstr);
+            if (cart[idstr] != undefined){
+                cart[idstr] += 1;
+            } else {
+                cart[idstr] = 1;
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            console.log(cart);
+            document.getElementById('cart').innerHTML = Object.keys(cart).length;
+
+            // Update popover content after adding to cart
+            $('#popcart').attr('data-content', '<h5>Cart for your items in my shopping cart</h5>');
+        });
+    });
+</script>
+{% endblock %}
